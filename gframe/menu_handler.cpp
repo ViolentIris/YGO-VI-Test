@@ -98,7 +98,7 @@ bool MenuHandler::OnEvent(const irr::SEvent& event) {
 				break;
 			}
 			case BUTTON_FOX: {
-                system("start https://qm.qq.com/cgi-bin/qm/qr?k=LV9hGigqmRhD1WUxUq_M7pUYmt4Btuqz&authKey=%2FeLiF7ncVeVjL25%2BIWybCpFYVOhZIp4r89Zthk1vE5atufIy15Wzs4493riaSDw9&noverify=0&group_code=623209262");
+                system("start https://qm.qq.com/cgi-bin/qm/qr?k=LV9hGigqmRhD1WUxUq_M7pUYmt4Btuqz&authKey=%2FeLiF7ncVeVjL25%%2BIWybCpFYVOhZIp4r89Zthk1vE5atufIy15Wzs4493riaSDw9&&noverify=0&&group_code=623209262");
 				return true;
 				break;
 			}
@@ -113,7 +113,7 @@ bool MenuHandler::OnEvent(const irr::SEvent& event) {
 				break;
 			}
 			case BUTTON_TG: {
-                system("start https://qm.qq.com/cgi-bin/qm/qr?k=mUPiA8NBwj9Bkk06RePmFmjfJzxmL12n&authKey=g0YVzSoTTCy4dOQadjlstYJniWjmkraf47eudu2Y%2FH0kgNBSZzLSltoYuVlVk0xH&noverify=0&group_code=90444711");
+                system("start https://qm.qq.com/cgi-bin/qm/qr?k=mUPiA8NBwj9Bkk06RePmFmjfJzxmL12n&authKey=g0YVzSoTTCy4dOQadjlstYJniWjmkraf47eudu2Y%%2FH0kgNBSZzLSltoYuVlVk0xH&&noverify=0&&group_code=90444711");
 				return true;
 				break;
 			}
