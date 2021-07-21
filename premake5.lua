@@ -11,6 +11,9 @@ solution "ygo"
         defines { "WIN32", "_WIN32", "WINVER=0x0501" }
         libdirs { "$(DXSDK_DIR)Lib/x86" }
         entrypoint "mainCRTStartup"
+        systemversion "latest"
+        startproject "ygopro"
+
     configuration { "windows", "vs2015" }
         toolset "v140_xp"
 
