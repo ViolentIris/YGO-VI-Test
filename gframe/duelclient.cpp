@@ -892,44 +892,44 @@ int DuelClient::ClientAnalyze(char * msg, unsigned int len) {
 		if(last_successful_msg_length) {
 			char* p = last_successful_msg;
 			auto last_msg = BufferIO::ReadUInt8(p);
-			int err_desc = 1464;
+			int err_desc = 1421;
 			switch(last_msg) {
 			case MSG_ANNOUNCE_CARD:
-				err_desc = 1421;
+				err_desc = 1422;
 				break;
 			case MSG_ANNOUNCE_ATTRIB:
-				err_desc = 1465;
+				err_desc = 1423;
 				break;
 			case MSG_ANNOUNCE_RACE:
-				err_desc = 1466;
+				err_desc = 1424;
 				break;
 			case MSG_ANNOUNCE_NUMBER:
-				err_desc = 1467;
+				err_desc = 1425;
 				break;
 			case MSG_SELECT_EFFECTYN:
 			case MSG_SELECT_YESNO:
 			case MSG_SELECT_OPTION:
-				err_desc = 1468;
+				err_desc = 1426;
 				break;
 			case MSG_SELECT_CARD:
 			case MSG_SELECT_UNSELECT_CARD:
 			case MSG_SELECT_TRIBUTE:
 			case MSG_SELECT_SUM:
 			case MSG_SORT_CARD:
-				err_desc = 1469;
+				err_desc = 1427;
 				break;
 			case MSG_SELECT_CHAIN:
-				err_desc = 1470;
+				err_desc = 1428;
 				break;
 			case MSG_SELECT_PLACE:
 			case MSG_SELECT_DISFIELD:
-				err_desc = 1471;
+				err_desc = 1429;
 				break;
 			case MSG_SELECT_POSITION:
-				err_desc = 1472;
+				err_desc = 1430;
 				break;
 			case MSG_SELECT_COUNTER:
-				err_desc = 1473;
+				err_desc = 1431;
 				break;
 			default:
 				break;
