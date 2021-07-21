@@ -839,6 +839,8 @@ extern Game* mainGame;
 #define BUTTON_BIG_CARD_ZOOM_IN		381
 #define BUTTON_BIG_CARD_ZOOM_OUT	382
 #define BUTTON_BIG_CARD_ORIG_SIZE	383
+
+#define BUTTON_OTHER			        385
 #define BUTTON_SEM						389
 #define BUTTON_TAKEOUT1					390
 #define BUTTON_TAKEOUT2					391
@@ -852,6 +854,15 @@ extern Game* mainGame;
 #define BUTTON_DLD						431
 #define BUTTON_YST						432
 #define BUTTON_MJ						433
+#define BUTTON_SERVER_CHOOSE			394
+#define BUTTON_233						395
+#define BUTTON_23333					396
+#define BUTTON_7210						397
+#define BUTTON_222						398
+#define BUTTON_765						399
+#define BUTTON_JP						400
+#define BUTTON_NK						401
+#define BUTTON_SC_EXIT					402
 
 #define BUTTON_ROOM_CODE				501
 #define BUTTON_RM1						502
