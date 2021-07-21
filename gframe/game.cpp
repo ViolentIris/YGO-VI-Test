@@ -152,44 +152,64 @@ bool Game::Initialize() {
 	SetWindowsIcon();
 	//main menu
 	wchar_t strbuf[256];
-	myswprintf(strbuf, L"YGOPro 233 Test Version:%X.0%X.%X", PRO_VERSION >> 12, (PRO_VERSION >> 4) & 0xff, PRO_VERSION & 0xf);
+	myswprintf(strbuf, L"YGOVI-EX Test Version:%X.0%X.%X", PRO_VERSION >> 12, (PRO_VERSION >> 4) & 0xff, PRO_VERSION & 0xf);
 	wMainMenu = env->addWindow(rect<s32>(370, 200, 950, 600), false, strbuf);
 	wMainMenu->getCloseButton()->setVisible(false);
 	btnLanMode = env->addButton(rect<s32>(10, 30, 270, 60), wMainMenu, BUTTON_LAN_MODE, dataManager.GetSysString(1200));
 	btnSingleMode = env->addButton(rect<s32>(10, 65, 270, 95), wMainMenu, BUTTON_SINGLE_MODE, dataManager.GetSysString(1201));
 	btnReplayMode = env->addButton(rect<s32>(10, 100, 270, 130), wMainMenu, BUTTON_REPLAY_MODE, dataManager.GetSysString(1202));
-//	btnTestMode = env->addButton(rect<s32>(10, 135, 270, 165), wMainMenu, BUTTON_TEST_MODE, dataManager.GetSysString(1203));
 	btnDeckEdit = env->addButton(rect<s32>(10, 135, 270, 165), wMainMenu, BUTTON_DECK_EDIT, dataManager.GetSysString(1204));
-	btnModeExit = env->addButton(rect<s32>(10, 170, 270, 200), wMainMenu, BUTTON_MODE_EXIT, dataManager.GetSysString(1210));
+	btnModeExit = env->addButton(rect<s32>(10, 205, 270, 235), wMainMenu, BUTTON_MODE_EXIT, dataManager.GetSysString(1210));
+	btnOther = env->addButton(rect<s32>(10, 170, 270, 200), wMainMenu, BUTTON_OTHER, dataManager.GetSysString(1442));
+	//other
+	wOther = env->addWindow(rect<s32>(370, 70, 650, 565), false, dataManager.GetSysString(1422));
+	wOther->getCloseButton()->setVisible(false);
+	wOther->setVisible(false);
+	wOther->setDraggable(false);
+	btnSEM = env->addButton(rect<s32>(10, 30, 270, 60), wOther, BUTTON_SEM, dataManager.GetSysString(1423));
+	btnTakeout1 = env->addButton(rect<s32>(10, 65, 270, 95), wOther, BUTTON_TAKEOUT1, dataManager.GetSysString(1424));
+	btnTakeout2 = env->addButton(rect<s32>(10, 100, 270, 130), wOther, BUTTON_TAKEOUT2, dataManager.GetSysString(1425));
+	btnLantern = env->addButton(rect<s32>(10, 135, 270, 165), wOther, BUTTON_LANTERN, dataManager.GetSysString(1426));
+	btnVI = env->addButton(rect<s32>(10, 170, 270, 200), wOther, BUTTON_VI, dataManager.GetSysString(1440));
+	btnFOX = env->addButton(rect<s32>(10, 205, 270, 235), wOther, BUTTON_FOX, dataManager.GetSysString(1441));
+	btnWBO = env->addButton(rect<s32>(10, 240, 270, 270), wOther, BUTTON_WBO, dataManager.GetSysString(1439));
+	btnDC = env->addButton(rect<s32>(10, 275, 270, 305), wOther, BUTTON_DC, dataManager.GetSysString(1448));
+	btnDLD = env->addButton(rect<s32>(10, 310, 270, 340), wOther, BUTTON_DLD, dataManager.GetSysString(1447));
+	btnTG = env->addButton(rect<s32>(10, 345, 270, 375), wOther, BUTTON_TG, dataManager.GetSysString(1449));
+	btnYST = env->addButton(rect<s32>(10, 380, 270, 410), wOther, BUTTON_YST, dataManager.GetSysString(1536));
+	btnMJ = env->addButton(rect<s32>(10, 415, 270, 445), wOther, BUTTON_MJ, dataManager.GetSysString(1513));
+	btnOtherExit = env->addButton(rect<s32>(10, 450, 270, 480), wOther, BUTTON_OTHER_EXIT, dataManager.GetSysString(1210));
+	env->addStaticText(L"此版本为YGO-VI-EX战队版测试版本，", rect<s32>(10, 255, 270, 275), false, false, wMainMenu);
+	env->addStaticText(L"遇到问题请务必反馈，群：623209262。", rect<s32>(10, 275, 270, 295), false, false, wMainMenu);
+	env->addStaticText(L"不要觉得会有别人玩喵版程序，别人倒也是这么做的。", rect<s32>(10, 295, 270, 315), false, false, wMainMenu);
 
-	env->addStaticText(L"此版本为233服测试版本，", rect<s32>(10, 220, 270, 240), false, false, wMainMenu);
-	env->addStaticText(L"遇到问题请务必反馈，群：275986039。", rect<s32>(10, 240, 270, 260), false, false, wMainMenu);
-	env->addStaticText(L"不要觉得会有别人报告，别人也会这么想。", rect<s32>(10, 260, 270, 280), false, false, wMainMenu);
-
-	env->addStaticText(L"此版本会不定期更新，", rect<s32>(10, 300, 270, 320), false, false, wMainMenu);
-	env->addStaticText(L"建议随时在233服官网下载最新版本！", rect<s32>(10, 320, 270, 340), false, false, wMainMenu);
+	env->addStaticText(L"此版本会不一定会更新，", rect<s32>(10, 330, 270, 350), false, false, wMainMenu);
+	env->addStaticText(L"管他的呢是吧！", rect<s32>(10, 350, 270, 370), false, false, wMainMenu);
 
 	env->addStaticText(L"网址：", rect<s32>(10, 340, 270, 360), false, false, wMainMenu);
-	env->addStaticText(L"https://ygo233.com/", rect<s32>(10, 360, 270, 380), false, false, wMainMenu);
+	env->addStaticText(L"https://weibo.com/VI1911/", rect<s32>(10, 360, 270, 380), false, false, wMainMenu);
 
 	env->addStaticText(L"目前测试的内容：\n\n\
-鼠标滚轮浏览卡组中的卡片。\n\
+做点战队打牌大佬可能用得上的。\n\
 \n\
 \n已知问题：\n\
-\n鸽了，爽\n\
+\n你喵老师太弱了，没有力量。\n\
 ", rect<s32>(300, 30, 550, 390), false, true, wMainMenu);
 
 	//lan mode
 	wLanWindow = env->addWindow(rect<s32>(220, 100, 800, 520), false, dataManager.GetSysString(1200));
 	wLanWindow->getCloseButton()->setVisible(false);
 	wLanWindow->setVisible(false);
+	wLanWindow->setDraggable(false);
 	env->addStaticText(dataManager.GetSysString(1220), rect<s32>(10, 30, 220, 50), false, false, wLanWindow);
 	ebNickName = env->addEditBox(gameConf.nickname, rect<s32>(110, 25, 450, 50), true, wLanWindow);
 	ebNickName->setTextAlignment(irr::gui::EGUIA_UPPERLEFT, irr::gui::EGUIA_CENTER);
 	lstHostList = env->addListBox(rect<s32>(10, 60, 570, 320), wLanWindow, LISTBOX_LAN_HOST, true);
 	lstHostList->setItemHeight(18);
-	btnLanRefresh = env->addButton(rect<s32>(240, 325, 340, 350), wLanWindow, BUTTON_LAN_REFRESH, dataManager.GetSysString(1217));
+	btnLanRefresh = env->addButton(rect<s32>(100, 325, 200, 350), wLanWindow, BUTTON_LAN_REFRESH, dataManager.GetSysString(1217));
 	env->addStaticText(dataManager.GetSysString(1221), rect<s32>(10, 360, 220, 380), false, false, wLanWindow);
+	btnSC = env->addButton(rect<s32>(240, 325, 340, 350), wLanWindow, BUTTON_SERVER_CHOOSE, dataManager.GetSysString(1427));
+	btnRM = env->addButton(rect<s32>(380, 325, 480, 350), wLanWindow, BUTTON_ROOM_CODE, dataManager.GetSysString(1517));
 	ebJoinHost = env->addEditBox(gameConf.lasthost, rect<s32>(110, 355, 350, 380), true, wLanWindow);
 	ebJoinHost->setTextAlignment(irr::gui::EGUIA_CENTER, irr::gui::EGUIA_CENTER);
 	ebJoinPort = env->addEditBox(gameConf.lastport, rect<s32>(360, 355, 420, 380), true, wLanWindow);
@@ -200,6 +220,43 @@ bool Game::Initialize() {
 	btnJoinHost = env->addButton(rect<s32>(460, 355, 570, 380), wLanWindow, BUTTON_JOIN_HOST, dataManager.GetSysString(1223));
 	btnJoinCancel = env->addButton(rect<s32>(460, 385, 570, 410), wLanWindow, BUTTON_JOIN_CANCEL, dataManager.GetSysString(1212));
 	btnCreateHost = env->addButton(rect<s32>(460, 25, 570, 50), wLanWindow, BUTTON_CREATE_HOST, dataManager.GetSysString(1224));
+	//server choose
+	wSC = env->addWindow(rect<s32>(-60, 100, 220, 417), false, dataManager.GetSysString(1428));
+	wSC->getCloseButton()->setVisible(false);
+	wSC->setVisible(false);
+	wSC->setDraggable(false);
+	btn233 = env->addButton(rect<s32>(10, 30, 270, 60), wSC, BUTTON_233, dataManager.GetSysString(1429));
+	btn23333 = env->addButton(rect<s32>(10, 65, 270, 95), wSC, BUTTON_23333, dataManager.GetSysString(1430));
+	btn7210 = env->addButton(rect<s32>(10, 100, 270, 130), wSC, BUTTON_7210, dataManager.GetSysString(1431));
+	btn222 = env->addButton(rect<s32>(10, 135, 270, 165), wSC, BUTTON_222, dataManager.GetSysString(1432));
+	btn765 = env->addButton(rect<s32>(10, 170, 270, 200), wSC, BUTTON_765, dataManager.GetSysString(1433));
+	btnJP = env->addButton(rect<s32>(10, 205, 270, 235), wSC, BUTTON_JP, dataManager.GetSysString(1434));
+	btnNK = env->addButton(rect<s32>(10, 240, 270, 270), wSC, BUTTON_NK, dataManager.GetSysString(1435));
+	btnSCExit = env->addButton(rect<s32>(10, 275, 270, 305), wSC, BUTTON_SC_EXIT, dataManager.GetSysString(1436));
+	//room code
+	wRM = env->addWindow(rect<s32>(800, 100, 1230, 460), false, dataManager.GetSysString(1517));
+	wRM->getCloseButton()->setVisible(false);
+	wRM->setVisible(false);
+	wRM->setDraggable(false);
+	btnRM1 = env->addButton(rect<s32>(10, 30, 210, 60), wRM, BUTTON_RM1, dataManager.GetSysString(1518));
+	btnRM2 = env->addButton(rect<s32>(220, 30, 420, 60), wRM, BUTTON_RM2, dataManager.GetSysString(1519));
+	btnRM3 = env->addButton(rect<s32>(10, 65, 210, 95), wRM, BUTTON_RM3, dataManager.GetSysString(1520));
+	btnRM4 = env->addButton(rect<s32>(220, 65, 420, 95), wRM, BUTTON_RM4, dataManager.GetSysString(1521));
+	btnRM5 = env->addButton(rect<s32>(10, 100, 210, 130), wRM, BUTTON_RM5, dataManager.GetSysString(1522));
+	btnRM6 = env->addButton(rect<s32>(220, 100, 420, 130), wRM, BUTTON_RM6, dataManager.GetSysString(1523));
+	btnRM7 = env->addButton(rect<s32>(10, 135, 210, 165), wRM, BUTTON_RM7, dataManager.GetSysString(1524));
+	btnRM8 = env->addButton(rect<s32>(220, 135, 420, 165), wRM, BUTTON_RM8, dataManager.GetSysString(1525));
+	btnRM9 = env->addButton(rect<s32>(10, 170, 210, 200), wRM, BUTTON_RM9, dataManager.GetSysString(1526));
+	btnRM10 = env->addButton(rect<s32>(220, 170, 420, 200), wRM, BUTTON_RM10, dataManager.GetSysString(1527));
+	btnRM11 = env->addButton(rect<s32>(10, 205, 210, 235), wRM, BUTTON_RM11, dataManager.GetSysString(1528));
+	btnRM12 = env->addButton(rect<s32>(220, 205, 420, 235), wRM, BUTTON_RM12, dataManager.GetSysString(1529));
+	btnRM13 = env->addButton(rect<s32>(10, 240, 210, 270), wRM, BUTTON_RM13, dataManager.GetSysString(1530));
+	btnRM14 = env->addButton(rect<s32>(220, 240, 420, 270), wRM, BUTTON_RM14, dataManager.GetSysString(1531));
+	btnRMCM = env->addButton(rect<s32>(30, 285, 90, 345), wRM, BUTTON_RMCM, dataManager.GetSysString(1532));
+	btnRMWN = env->addButton(rect<s32>(120, 285, 180, 345), wRM, BUTTON_RMWN, dataManager.GetSysString(1533));
+	btnRMAI = env->addButton(rect<s32>(210, 280, 310, 310), wRM, BUTTON_RMAI, dataManager.GetSysString(1534));
+	btnRMA = env->addButton(rect<s32>(320, 280, 420, 310), wRM, BUTTON_RMA, dataManager.GetSysString(1535));
+	btnRMExit = env->addButton(rect<s32>(250, 320, 380, 350), wRM, BUTTON_RM_EXIT, dataManager.GetSysString(1436));
 	//create host
 	wCreateHost = env->addWindow(rect<s32>(320, 100, 700, 520), false, dataManager.GetSysString(1224));
 	wCreateHost->getCloseButton()->setVisible(false);
@@ -1776,6 +1833,7 @@ void Game::OnResize() {
 
 	recti menuposition = ResizeWin(370, 200, 650, 415);
 	wMainMenu->setRelativePosition(recti(menuposition.UpperLeftCorner.X, menuposition.UpperLeftCorner.Y, menuposition.LowerRightCorner.X + 300, menuposition.LowerRightCorner.Y + 185));
+	wOther->setRelativePosition(ResizeWin(370, 70, 650, 565));
 	wDeckEdit->setRelativePosition(Resize(309, 5, 605, 130));
 	cbDBDecks->setRelativePosition(Resize(80, 35, 220, 60));
 	btnClearDeck->setRelativePosition(Resize(115, 99, 165, 120));

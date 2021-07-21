@@ -54,12 +54,351 @@ bool MenuHandler::OnEvent(const irr::SEvent& event) {
 				mainGame->device->closeDevice();
 				break;
 			}
+			case BUTTON_OTHER: {
+				mainGame->btnSEM->setEnabled(true);
+				mainGame->btnTakeout1->setEnabled(true);
+				mainGame->btnTakeout2->setEnabled(true);
+				mainGame->btnLantern->setEnabled(true);
+				mainGame->btnVI->setEnabled(true);
+				mainGame->btnFOX->setEnabled(true);
+				mainGame->btnWBO->setEnabled(true);
+				mainGame->btnDC->setEnabled(true);
+				mainGame->btnDLD->setEnabled(true);
+				mainGame->btnTG->setEnabled(true);
+				mainGame->btnYST->setEnabled(true);
+				mainGame->btnMJ->setEnabled(true);
+				mainGame->btnOtherExit->setEnabled(true);
+				mainGame->HideElement(mainGame->wMainMenu);
+				mainGame->ShowElement(mainGame->wOther);
+				break;
+			}
+			case BUTTON_SEM: {
+                system("start https://ygo233.com/pre");
+				return true;
+				break;
+			}
+			case BUTTON_TAKEOUT1: {
+                system("start https://ygobbs.com/");
+				return true;
+				break;
+			}
+			case BUTTON_TAKEOUT2: {
+                system("start https://event.ygobbs.com/");
+				return true;
+				break;
+			}
+			case BUTTON_LANTERN: {
+                system("start https://mycard.moe/ygopro/arena/#/tabulate");
+				return true;
+				break;
+			}
+			case BUTTON_VI: {
+                system("start https://afdian.net/@YGO-VI");
+				return true;
+				break;
+			}
+			case BUTTON_FOX: {
+                system("start https://qm.qq.com/cgi-bin/qm/qr?k=LV9hGigqmRhD1WUxUq_M7pUYmt4Btuqz&authKey=%2FeLiF7ncVeVjL25%2BIWybCpFYVOhZIp4r89Zthk1vE5atufIy15Wzs4493riaSDw9&noverify=0&group_code=623209262");
+				return true;
+				break;
+			}
+			case BUTTON_WBO: {
+                system("start https://weibo.com/VI1911");
+				return true;
+				break;
+			}
+			case BUTTON_DC: {
+                system("start https://rep.ygobbs.com/");
+				return true;
+				break;
+			}
+			case BUTTON_TG: {
+                system("start https://qm.qq.com/cgi-bin/qm/qr?k=mUPiA8NBwj9Bkk06RePmFmjfJzxmL12n&authKey=g0YVzSoTTCy4dOQadjlstYJniWjmkraf47eudu2Y%2FH0kgNBSZzLSltoYuVlVk0xH&noverify=0&group_code=90444711");
+				return true;
+				break;
+			}
+			case BUTTON_DLD: {
+                system("start .\\download\\YGO-VI-EX-Downloader.exe");
+				return true;
+				break;
+			}
+			case BUTTON_YST: {
+                system("start https://mycard.moe/ygopro/arena/#/ranking");
+				return true;
+				break;
+			}
+			case BUTTON_OTHER_EXIT: {
+				mainGame->HideElement(mainGame->wOther);
+				mainGame->ShowElement(mainGame->wMainMenu);
+				if(exit_on_return)
+					mainGame->device->closeDevice();
+				break;
+			}
+			case BUTTON_MJ: {
+                system("start https://mycard.moe/ygopro/arena/#/cards");
+				return true;
+				break;
+			}
 			case BUTTON_LAN_MODE: {
 				mainGame->btnCreateHost->setEnabled(true);
 				mainGame->btnJoinHost->setEnabled(true);
 				mainGame->btnJoinCancel->setEnabled(true);
 				mainGame->HideElement(mainGame->wMainMenu);
 				mainGame->ShowElement(mainGame->wLanWindow);
+				break;
+			}
+			case BUTTON_SERVER_CHOOSE: {
+				mainGame->btn233->setEnabled(true);
+				mainGame->btn23333->setEnabled(true);
+				mainGame->btn7210->setEnabled(true);
+				mainGame->btn222->setEnabled(true);
+				mainGame->btnSCExit->setEnabled(true);
+				mainGame->ShowElement(mainGame->wSC);
+				mainGame->PopupElement(mainGame->wSC);
+				break;
+			}
+			case BUTTON_233: {
+				wcscpy(mainGame->gameConf.lasthost, L"s1.ygo233.com");
+				wcscpy(mainGame->gameConf.lastport, L"233");
+				wchar_t buf[256];
+				wchar_t buff[256];
+				myswprintf(buf, L"%s", mainGame->gameConf.lasthost);
+				mainGame->ebJoinHost->setText(buf);
+				myswprintf(buff, L"%s", mainGame->gameConf.lastport);
+				mainGame->ebJoinPort->setText(buff);
+				mainGame->HideElement(mainGame->wSC);
+				break;
+			}
+			case BUTTON_23333: {
+				wcscpy(mainGame->gameConf.lasthost, L"s1.ygo233.com");
+				wcscpy(mainGame->gameConf.lastport, L"23333");
+				wchar_t buf[256];
+				wchar_t buff[256];
+				myswprintf(buf, L"%s", mainGame->gameConf.lasthost);
+				mainGame->ebJoinHost->setText(buf);
+				myswprintf(buff, L"%s", mainGame->gameConf.lastport);
+				mainGame->ebJoinPort->setText(buff);
+				mainGame->HideElement(mainGame->wSC);
+				break;
+			}
+			case BUTTON_765: {
+				wcscpy(mainGame->gameConf.lasthost, L"2pick.mycard.moe");
+				wcscpy(mainGame->gameConf.lastport, L"765");
+				wchar_t buf[256];
+				wchar_t buff[256];
+				myswprintf(buf, L"%s", mainGame->gameConf.lasthost);
+				mainGame->ebJoinHost->setText(buf);
+				myswprintf(buff, L"%s", mainGame->gameConf.lastport);
+				mainGame->ebJoinPort->setText(buff);
+				mainGame->HideElement(mainGame->wSC);
+				break;
+			}
+			case BUTTON_JP: {
+				wcscpy(mainGame->gameConf.lasthost, L"koishi.momobako.com");
+				wcscpy(mainGame->gameConf.lastport, L"3400");
+				wchar_t buf[256];
+				wchar_t buff[256];
+				myswprintf(buf, L"%s", mainGame->gameConf.lasthost);
+				mainGame->ebJoinHost->setText(buf);
+				myswprintf(buff, L"%s", mainGame->gameConf.lastport);
+				mainGame->ebJoinPort->setText(buff);
+				mainGame->HideElement(mainGame->wSC);
+				break;
+			}
+			case BUTTON_7210: {
+				wcscpy(mainGame->gameConf.lasthost, L"koishi.moecube.com");
+				wcscpy(mainGame->gameConf.lastport, L"7210");
+				wchar_t buf[256];
+				wchar_t buff[256];
+				myswprintf(buf, L"%s", mainGame->gameConf.lasthost);
+				mainGame->ebJoinHost->setText(buf);
+				myswprintf(buff, L"%s", mainGame->gameConf.lastport);
+				mainGame->ebJoinPort->setText(buff);
+				mainGame->HideElement(mainGame->wSC);
+				break;
+			}
+			case BUTTON_222: {
+				wcscpy(mainGame->gameConf.lasthost, L"ayane.mycard.moe");
+				wcscpy(mainGame->gameConf.lastport, L"222");
+				wchar_t buf[256];
+				wchar_t buff[256];
+				myswprintf(buf, L"%s", mainGame->gameConf.lasthost);
+				mainGame->ebJoinHost->setText(buf);
+				myswprintf(buff, L"%s", mainGame->gameConf.lastport);
+				mainGame->ebJoinPort->setText(buff);
+				mainGame->HideElement(mainGame->wSC);
+				break;
+			}
+			case BUTTON_NK: {
+				wcscpy(mainGame->gameConf.lasthost, L"duelstart.com");
+				wcscpy(mainGame->gameConf.lastport, L"2333");
+				wchar_t buf[256];
+				wchar_t buff[256];
+				myswprintf(buf, L"%s", mainGame->gameConf.lasthost);
+				mainGame->ebJoinHost->setText(buf);
+				myswprintf(buff, L"%s", mainGame->gameConf.lastport);
+				mainGame->ebJoinPort->setText(buff);
+				mainGame->HideElement(mainGame->wSC);
+				break;
+			}
+			case BUTTON_SC_EXIT: {
+				mainGame->HideElement(mainGame->wSC);
+					if(exit_on_return)
+				mainGame->device->closeDevice();
+				break;
+			}
+			case BUTTON_ROOM_CODE: {
+				mainGame->btnRM1->setEnabled(true);
+				mainGame->btnRM2->setEnabled(true);
+				mainGame->btnRM3->setEnabled(true);
+				mainGame->btnRM4->setEnabled(true);
+				mainGame->btnRM5->setEnabled(true);
+				mainGame->btnRM6->setEnabled(true);
+				mainGame->btnRM7->setEnabled(true);
+				mainGame->btnRM8->setEnabled(true);
+				mainGame->btnRM9->setEnabled(true);
+				mainGame->btnRM10->setEnabled(true);
+				mainGame->btnRM11->setEnabled(true);
+				mainGame->btnRM12->setEnabled(true);
+				mainGame->btnRM13->setEnabled(true);
+				mainGame->btnRM14->setEnabled(true);
+				mainGame->btnRMCM->setEnabled(true);
+				mainGame->btnRMWN->setEnabled(true);
+				mainGame->btnRMAI->setEnabled(true);
+				mainGame->btnRMA->setEnabled(true);
+				mainGame->btnRMExit->setEnabled(true);
+				mainGame->ShowElement(mainGame->wRM);
+				mainGame->PopupElement(mainGame->wRM);
+				break;
+			}
+			case BUTTON_RM1: {
+				const wchar_t* pstr = mainGame->ebJoinPass->getText();
+				wchar_t buff[1024];
+				swprintf(buff, L"%sM", pstr);
+				mainGame->ebJoinPass->setText(buff);
+				break;
+			}
+			case BUTTON_RM2: {
+				const wchar_t* pstr = mainGame->ebJoinPass->getText();
+				wchar_t buff[1024];
+				swprintf(buff, L"%sT", pstr);
+				mainGame->ebJoinPass->setText(buff);
+				break;
+			}
+			case BUTTON_RM3: {
+				const wchar_t* pstr = mainGame->ebJoinPass->getText();
+				wchar_t buff[1024];
+				swprintf(buff, L"%sOT", pstr);
+				mainGame->ebJoinPass->setText(buff);
+				break;
+			}
+			case BUTTON_RM4: {
+				const wchar_t* pstr = mainGame->ebJoinPass->getText();
+				wchar_t buff[1024];
+				swprintf(buff, L"%sTO", pstr);
+				mainGame->ebJoinPass->setText(buff);
+				break;
+			}
+			case BUTTON_RM5: {
+				const wchar_t* pstr = mainGame->ebJoinPass->getText();
+				wchar_t buff[1024];
+				swprintf(buff, L"%sLP4000", pstr);
+				mainGame->ebJoinPass->setText(buff);
+				break;
+			}
+			case BUTTON_RM6: {
+				const wchar_t* pstr = mainGame->ebJoinPass->getText();
+				wchar_t buff[1024];
+				swprintf(buff, L"%sTM5", pstr);
+				mainGame->ebJoinPass->setText(buff);
+				break;
+			}
+			case BUTTON_RM7: {
+				const wchar_t* pstr = mainGame->ebJoinPass->getText();
+				wchar_t buff[1024];
+				swprintf(buff, L"%sST8", pstr);
+				mainGame->ebJoinPass->setText(buff);
+				break;
+			}
+			case BUTTON_RM8: {
+				const wchar_t* pstr = mainGame->ebJoinPass->getText();
+				wchar_t buff[1024];
+				swprintf(buff, L"%sDR2", pstr);
+				mainGame->ebJoinPass->setText(buff);
+				break;
+			}
+			case BUTTON_RM9: {
+				const wchar_t* pstr = mainGame->ebJoinPass->getText();
+				wchar_t buff[1024];
+				swprintf(buff, L"%sLF2", pstr);
+				mainGame->ebJoinPass->setText(buff);
+				break;
+			}
+			case BUTTON_RM10: {
+				const wchar_t* pstr = mainGame->ebJoinPass->getText();
+				wchar_t buff[1024];
+				swprintf(buff, L"%sNF", pstr);
+				mainGame->ebJoinPass->setText(buff);
+				break;
+			}
+			case BUTTON_RM11: {
+				const wchar_t* pstr = mainGame->ebJoinPass->getText();
+				wchar_t buff[1024];
+				swprintf(buff, L"%sNU", pstr);
+				mainGame->ebJoinPass->setText(buff);
+				break;
+			}
+			case BUTTON_RM12: {
+				const wchar_t* pstr = mainGame->ebJoinPass->getText();
+				wchar_t buff[1024];
+				swprintf(buff, L"%sNC", pstr);
+				mainGame->ebJoinPass->setText(buff);
+				break;
+			}
+			case BUTTON_RM13: {
+				const wchar_t* pstr = mainGame->ebJoinPass->getText();
+				wchar_t buff[1024];
+				swprintf(buff, L"%sNS", pstr);
+				mainGame->ebJoinPass->setText(buff);
+				break;
+			}
+			case BUTTON_RM14: {
+				const wchar_t* pstr = mainGame->ebJoinPass->getText();
+				wchar_t buff[1024];
+				swprintf(buff, L"%sDC", pstr);
+				mainGame->ebJoinPass->setText(buff);
+				break;
+			}
+			case BUTTON_RMCM: {
+				const wchar_t* pstr = mainGame->ebJoinPass->getText();
+				wchar_t buff[1024];
+				swprintf(buff, L"%s,", pstr);
+				mainGame->ebJoinPass->setText(buff);
+				break;
+			}
+			case BUTTON_RMWN: {
+				const wchar_t* pstr = mainGame->ebJoinPass->getText();
+				wchar_t buff[1024];
+				swprintf(buff, L"%s#", pstr);
+				mainGame->ebJoinPass->setText(buff);
+				break;
+			}
+			case BUTTON_RMAI: {
+				const wchar_t* pstr = mainGame->ebJoinPass->getText();
+				wchar_t buff[1024];
+				swprintf(buff, L"%sAI", pstr);
+				mainGame->ebJoinPass->setText(buff);
+				break;
+			}
+			case BUTTON_RMA: {
+                system("start https://ygo233.com/usage");
+				return true;
+				break;
+			}
+			case BUTTON_RM_EXIT: {
+				mainGame->HideElement(mainGame->wRM);
+					if(exit_on_return)
+				mainGame->device->closeDevice();
 				break;
 			}
 			case BUTTON_JOIN_HOST: {

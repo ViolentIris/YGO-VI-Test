@@ -319,17 +319,66 @@ public:
 	irr::gui::IGUIButton* btnTestMode;
 	irr::gui::IGUIButton* btnDeckEdit;
 	irr::gui::IGUIButton* btnModeExit;
+	irr::gui::IGUIButton* btnOther;
+	//other
+	irr::gui::IGUIWindow* wOther;
+	irr::gui::IGUIButton* btnSEM;
+	irr::gui::IGUIButton* btnTakeout1;
+	irr::gui::IGUIButton* btnTakeout2;
+	irr::gui::IGUIButton* btnOtherExit;
+	irr::gui::IGUIButton* btnLantern;
+	irr::gui::IGUIButton* btnVI;
+	irr::gui::IGUIButton* btnFOX;
+	irr::gui::IGUIButton* btnWBO;
+	irr::gui::IGUIButton* btnDC;
+	irr::gui::IGUIButton* btnDLD;
+	irr::gui::IGUIButton* btnTG;
+	irr::gui::IGUIButton* btnYST;
+	irr::gui::IGUIButton* btnMJ;
 	//lan
 	irr::gui::IGUIWindow* wLanWindow;
 	irr::gui::IGUIEditBox* ebNickName;
 	irr::gui::IGUIListBox* lstHostList;
 	irr::gui::IGUIButton* btnLanRefresh;
+	irr::gui::IGUIButton* btnSC;
+	irr::gui::IGUIButton* btnRM;
 	irr::gui::IGUIEditBox* ebJoinHost;
 	irr::gui::IGUIEditBox* ebJoinPort;
 	irr::gui::IGUIEditBox* ebJoinPass;
 	irr::gui::IGUIButton* btnJoinHost;
 	irr::gui::IGUIButton* btnJoinCancel;
 	irr::gui::IGUIButton* btnCreateHost;
+	//server choose
+	irr::gui::IGUIWindow* wSC;
+	irr::gui::IGUIButton* btn233;
+	irr::gui::IGUIButton* btn23333;
+	irr::gui::IGUIButton* btn7210;
+	irr::gui::IGUIButton* btn222;
+	irr::gui::IGUIButton* btn765;
+	irr::gui::IGUIButton* btnJP;
+	irr::gui::IGUIButton* btnNK;
+	irr::gui::IGUIButton* btnSCExit;
+	//room code
+	irr::gui::IGUIWindow* wRM;
+	irr::gui::IGUIButton* btnRM1;
+	irr::gui::IGUIButton* btnRM2;
+	irr::gui::IGUIButton* btnRM3;
+	irr::gui::IGUIButton* btnRM4;
+	irr::gui::IGUIButton* btnRM5;
+	irr::gui::IGUIButton* btnRM6;
+	irr::gui::IGUIButton* btnRM7;
+	irr::gui::IGUIButton* btnRM8;
+	irr::gui::IGUIButton* btnRM9;
+	irr::gui::IGUIButton* btnRM10;
+	irr::gui::IGUIButton* btnRM11;
+	irr::gui::IGUIButton* btnRM12;
+	irr::gui::IGUIButton* btnRM13;
+	irr::gui::IGUIButton* btnRM14;
+	irr::gui::IGUIButton* btnRMCM;
+	irr::gui::IGUIButton* btnRMWN;
+	irr::gui::IGUIButton* btnRMAI;
+	irr::gui::IGUIButton* btnRMA;
+	irr::gui::IGUIButton* btnRMExit;
 	//create host
 	irr::gui::IGUIWindow* wCreateHost;
 	irr::gui::IGUIComboBox* cbHostLFlist;
@@ -790,6 +839,40 @@ extern Game* mainGame;
 #define BUTTON_BIG_CARD_ZOOM_IN		381
 #define BUTTON_BIG_CARD_ZOOM_OUT	382
 #define BUTTON_BIG_CARD_ORIG_SIZE	383
+#define BUTTON_SEM						389
+#define BUTTON_TAKEOUT1					390
+#define BUTTON_TAKEOUT2					391
+#define BUTTON_LANTERN					392
+#define BUTTON_OTHER_EXIT				393
+#define BUTTON_VI						403
+#define BUTTON_FOX						404
+#define BUTTON_WBO						405
+#define BUTTON_TG						429
+#define BUTTON_DC						430
+#define BUTTON_DLD						431
+#define BUTTON_YST						432
+#define BUTTON_MJ						433
+
+#define BUTTON_ROOM_CODE				501
+#define BUTTON_RM1						502
+#define BUTTON_RM2						503
+#define BUTTON_RM3						504
+#define BUTTON_RM4						505
+#define BUTTON_RM5						506
+#define BUTTON_RM6						507
+#define BUTTON_RM7						508
+#define BUTTON_RM8						509
+#define BUTTON_RM9						510
+#define BUTTON_RM10						511
+#define BUTTON_RM11						512
+#define BUTTON_RM12						513
+#define BUTTON_RM13						514
+#define BUTTON_RM14						515
+#define BUTTON_RMCM						516
+#define BUTTON_RMWN						517
+#define BUTTON_RMAI						518
+#define BUTTON_RMA						519
+#define BUTTON_RM_EXIT					520
 
 #define DEFAULT_DUEL_RULE			5
 
