@@ -256,7 +256,7 @@ bool Game::Initialize() {
 	btnRMWN = env->addButton(rect<s32>(120, 285, 180, 345), wRM, BUTTON_RMWN, dataManager.GetSysString(1533));
 	btnRMAI = env->addButton(rect<s32>(210, 280, 310, 310), wRM, BUTTON_RMAI, dataManager.GetSysString(1534));
 	btnRMA = env->addButton(rect<s32>(320, 280, 420, 310), wRM, BUTTON_RMA, dataManager.GetSysString(1535));
-	btnRMExit = env->addButton(rect<s32>(250, 320, 380, 350), wRM, BUTTON_RM_EXIT, dataManager.GetSysString(1436));
+	btnRMExit = env->addButton(rect<s32>(250, 320, 380, 350), wRM, BUTTON_RM_EXIT, dataManager.GetSysString(1210));
 	//create host
 	wCreateHost = env->addWindow(rect<s32>(320, 100, 700, 520), false, dataManager.GetSysString(1224));
 	wCreateHost->getCloseButton()->setVisible(false);
@@ -1892,6 +1892,17 @@ void Game::OnResize() {
 	btnDeleteDeck->setRelativePosition(Resize(225, 95, 290, 120));
 
 	wLanWindow->setRelativePosition(ResizeWin(220, 100, 800, 520));
+	recti btnCRpos = wLanWindow->getAbsolutePosition();
+	wSC->setRelativePosition(recti(
+		btnCRpos.LowerRightCorner.X - 860,
+		btnCRpos.LowerRightCorner.Y - 420,
+		btnCRpos.LowerRightCorner.X - 580,
+		btnCRpos.LowerRightCorner.Y - 103));
+	wRM->setRelativePosition(recti(
+		btnCRpos.LowerRightCorner.X,
+		btnCRpos.LowerRightCorner.Y - 420,
+		btnCRpos.LowerRightCorner.X + 430,
+		btnCRpos.LowerRightCorner.Y - 60));
 	wCreateHost->setRelativePosition(ResizeWin(320, 100, 700, 520));
 	wHostPrepare->setRelativePosition(ResizeWin(270, 120, 750, 440));
 	wReplay->setRelativePosition(ResizeWin(220, 100, 800, 520));
