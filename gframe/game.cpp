@@ -181,20 +181,18 @@ bool Game::Initialize() {
 	btnOtherExit = env->addButton(rect<s32>(10, 450, 270, 480), wOther, BUTTON_OTHER_EXIT, dataManager.GetSysString(1210));
 	env->addStaticText(L"此版本为YGO-VI-EX战队版测试版本，", rect<s32>(10, 255, 270, 275), false, false, wMainMenu);
 	env->addStaticText(L"遇到问题请务必反馈，群：623209262。", rect<s32>(10, 275, 270, 295), false, false, wMainMenu);
-	env->addStaticText(L"不要觉得会有别人玩喵版程序，别人倒也是这么做的。", rect<s32>(10, 295, 270, 315), false, false, wMainMenu);
+	env->addStaticText(L"不要觉得会有别人玩喵版程序，别人倒也是这么做的。", rect<s32>(10, 295, 590, 315), false, false, wMainMenu);
 
 	env->addStaticText(L"此版本不一定会更新，", rect<s32>(10, 330, 270, 350), false, false, wMainMenu);
-	env->addStaticText(L"管他的呢是吧，反正太阳每一天都会升起。", rect<s32>(10, 350, 270, 370), false, false, wMainMenu);
+	env->addStaticText(L"嗨，管他的呢是吧，反正太阳每一天都会升起。", rect<s32>(10, 350, 590, 370), false, false, wMainMenu);
 
 	env->addStaticText(L"网址：", rect<s32>(10, 370, 270, 390), false, false, wMainMenu);
 	env->addStaticText(L"https://weibo.com/VI1911/", rect<s32>(10, 390, 270, 410), false, false, wMainMenu);
 
-	env->addStaticText(L"目前测试的内容：\n\n\
+	env->addStaticText(L"目前测试的内容：\n\
 做点战队打牌大佬可能用得上的。\n\
-\n\
-\n已知问题：\n\
-\n你喵老师太弱了，没有力量。\n\
-", rect<s32>(300, 30, 550, 390), false, true, wMainMenu);
+\n\已知问题：\n\
+你喵老师太弱了，没有力量。\n\", rect<s32>(300, 30, 550, 390), false, true, wMainMenu);
 
 	//lan mode
 	wLanWindow = env->addWindow(rect<s32>(220, 100, 800, 520), false, dataManager.GetSysString(1200));
@@ -1831,8 +1829,7 @@ void Game::OnResize() {
 	imageManager.ClearTexture();
 	imageManager.ResizeTexture();
 
-	recti menuposition = ResizeWin(370, 200, 650, 415);
-	wMainMenu->setRelativePosition(recti(menuposition.UpperLeftCorner.X, menuposition.UpperLeftCorner.Y, menuposition.LowerRightCorner.X + 300, menuposition.LowerRightCorner.Y + 185));
+	wMainMenu->setRelativePosition(ResizeWin(370, 200, 950, 650));
 	wOther->setRelativePosition(ResizeWin(370, 70, 650, 565));
 	wDeckEdit->setRelativePosition(Resize(309, 5, 605, 130));
 	cbDBDecks->setRelativePosition(Resize(80, 35, 220, 60));
