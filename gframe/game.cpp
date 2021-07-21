@@ -188,15 +188,7 @@ bool Game::Initialize() {
 
 	env->addStaticText(L"网址：", rect<s32>(10, 370, 270, 390), false, false, wMainMenu);
 	env->addStaticText(L"https://weibo.com/VI1911/", rect<s32>(10, 390, 270, 410), false, false, wMainMenu);
-	env->addStaticText(L"目前测试的内容：\n\
-做点战队打牌大佬可能用得上的。\n\
-\n\
-已知问题：\n\
-你喵老师太弱了，没有力量。\n\
-\n\
-空位还多，征集个广告位如何？\n\
-比如战队推广啥的？
-", rect<s32>(300, 30, 550, 390), false, true, wMainMenu);
+	env->addStaticText(L"目前测试的内容：\n做点战队打牌大佬可能用得上的。\n\n已知问题：\n你喵老师太弱了，没有力量。\n\n空位还多，征集个广告位如何？\n比如战队推广啥的？", rect<s32>(300, 30, 550, 390), false, true, wMainMenu);
 
 	//lan mode
 	wLanWindow = env->addWindow(rect<s32>(220, 100, 800, 520), false, dataManager.GetSysString(1200));
