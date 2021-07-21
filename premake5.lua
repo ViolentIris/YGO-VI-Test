@@ -4,7 +4,6 @@ solution "ygo"
     objdir "obj"
 
     USE_IRRKLANG = true
-    IRRKLANG_PRO = true
 
     configurations { "Release", "Debug" }
 
@@ -12,17 +11,8 @@ solution "ygo"
         defines { "WIN32", "_WIN32", "WINVER=0x0501" }
         libdirs { "$(DXSDK_DIR)Lib/x86" }
         entrypoint "mainCRTStartup"
-        systemversion "latest"
-        startproject "ygopro"
-
-    configuration { "windows", "vs2015" }
         toolset "v140_xp"
-
-    configuration { "windows", "vs2017" }
-        toolset "v141_xp"
-
-    configuration { "windows", "vs2019" }
-        toolset "v141_xp"
+        startproject "ygopro"
 
     configuration "bsd"
         defines { "LUA_USE_POSIX" }
@@ -50,9 +40,8 @@ solution "ygo"
         targetdir "bin/debug"
 
     configuration { "Release", "vs*" }
-        flags { "LinkTimeOptimization" }
-        staticruntime "On"
-        disablewarnings { "4244", "4267", "4838", "4577", "4819", "4018", "4996", "4477", "4091", "4828", "4800" }
+        flags { "StaticRuntime", "LinkTimeOptimization" }
+        disablewarnings { "4244", "4267", "4838", "4577", "4819", "4018", "4996", "4477", "4091", "4305", "4828", "4800" }
 
     configuration { "Release", "not vs*" }
         symbols "On"
@@ -65,7 +54,6 @@ solution "ygo"
 
     configuration "vs*"
         vectorextensions "SSE2"
-        buildoptions { "/utf-8" }
         defines { "_CRT_SECURE_NO_WARNINGS" }
     
     configuration "not vs*"
@@ -82,7 +70,5 @@ solution "ygo"
     include "freetype"
     include "irrlicht"
     include "sqlite3"
-    if IRRKLANG_PRO then
     include "ikpmp3"
-    end
     end
