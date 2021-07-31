@@ -45,8 +45,15 @@ bool ImageManager::Initial() {
 	tFieldTransparent[0] = driver->getTexture("textures/field-transparent2.png");
 	tField[1] = driver->getTexture("textures/field3.png");
 	tFieldTransparent[1] = driver->getTexture("textures/field-transparent3.png");
-	tDV = GetRandomImage(TEXTURE_DV);
+	tDV = NULL;
+	if(!tDV)
+		tDV = GetRandomImage(TEXTURE_DV);
+	if(!tDV)
+		tDV = driver->getTexture("textures/divination/1.jpg");
 	ResizeTexture();
+	support_types.push_back(std::string("jpg"));
+	support_types.push_back(std::string("png"));
+	support_types.push_back(std::string("bpg"));
 	return true;
 }
 irr::video::ITexture* ImageManager::GetRandomImage(int image_type) {

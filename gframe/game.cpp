@@ -198,8 +198,9 @@ bool Game::Initialize() {
 	wDV->setDrawBackground(false);
 	wDV->setVisible(false);
 	imgDV = env->addImage(rect<s32>(0, 0, 430, 625), wDV);
-	imgDV->setScaleImage(false);
 	imgDV->setImage(imageManager.tDV);
+	imgDV->setScaleImage(false);
+
 	imgDV->setUseAlphaChannel(true);
 	btnDVClose = env->addButton(rect<s32>(385, 635, 475, 670), 0, BUTTON_DV_CLOSE, dataManager.GetSysString(1440));
 	btnDVClose->setVisible(false);
