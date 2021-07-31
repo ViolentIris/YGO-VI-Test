@@ -192,7 +192,7 @@ bool Game::Initialize() {
 	env->addStaticText(L"目前测试的内容：\n做点战队打牌大佬可能用得上的。\n\n已知问题：\n你喵老师太弱了，没有力量。\n\n空位还多，征集个广告位如何？\n比如战队推广啥的？", rect<s32>(300, 30, 550, 390), false, true, wMainMenu);
 
 	//DV
-	wDV = env->addWindow(rect<s32>(215, 30, 645, 700), false, L"");
+	wDV = env->addWindow(rect<s32>(215, 70, 645, 740), false, L"");
 	wDV->getCloseButton()->setVisible(false);
 	wDV->setDrawTitlebar(false);
 	wDV->setDrawBackground(false);
@@ -202,7 +202,7 @@ bool Game::Initialize() {
 	imgDV->setScaleImage(false);
 
 	imgDV->setUseAlphaChannel(true);
-	btnDVClose = env->addButton(rect<s32>(385, 635, 475, 670), 0, BUTTON_DV_CLOSE, dataManager.GetSysString(1440));
+	btnDVClose = env->addButton(rect<s32>(450, 290, 550, 310), 0, BUTTON_DV_CLOSE, dataManager.GetSysString(1440));
 	btnDVClose->setVisible(false);
 	//lan mode
 	wLanWindow = env->addWindow(rect<s32>(220, 100, 800, 520), false, dataManager.GetSysString(1200));
