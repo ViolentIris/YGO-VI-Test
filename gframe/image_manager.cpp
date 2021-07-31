@@ -1,11 +1,15 @@
 #include "image_manager.h"
 #include "game.h"
+#ifndef _WIN32
+#include <dirent.h>
+#endif
 
 namespace ygo {
 
 ImageManager imageManager;
 
 bool ImageManager::Initial() {
+	RefreshRandomImageList();
 	tCover[0] = NULL;
 	tCover[1] = NULL;
 	tCover[2] = GetTextureFromFile("textures/cover.jpg", CARD_IMG_WIDTH, CARD_IMG_HEIGHT);
@@ -41,8 +45,21 @@ bool ImageManager::Initial() {
 	tFieldTransparent[0] = driver->getTexture("textures/field-transparent2.png");
 	tField[1] = driver->getTexture("textures/field3.png");
 	tFieldTransparent[1] = driver->getTexture("textures/field-transparent3.png");
+	tDV = GetRandomImage(TEXTURE_DV);
 	ResizeTexture();
 	return true;
+}
+void ImageManager::RefreshRandomImageList() {
+	RefreshImageDir(L"divination", TEXTURE_DV);
+}
+void ImageManager::RefreshImageDir(std::wstring path, int image_type) {
+	std::wstring search = L"./textures/" + path;
+	FileSystem::TraversalDir(search.c_str(), [this, &path, image_type](const wchar_t* name, bool isdir) {
+		if(!isdir && wcsrchr(name, '.') && (!mywcsncasecmp(wcsrchr(name, '.'), L".jpg", 4) || !mywcsncasecmp(wcsrchr(name, '.'), L".png", 4))) {
+			std::wstring filename = path + L"/" + name;
+			ImageList[image_type].push_back(filename);
+		}
+	});
 }
 void ImageManager::SetDevice(irr::IrrlichtDevice* dev) {
 	device = dev;

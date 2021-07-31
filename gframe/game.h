@@ -628,6 +628,10 @@ public:
 	irr::gui::IGUIButton* btnBigCardZoomIn;
 	irr::gui::IGUIButton* btnBigCardZoomOut;
 	irr::gui::IGUIButton* btnBigCardClose;
+	//DV
+	irr::gui::IGUIWindow* wDV;
+	irr::gui::IGUIImage* imgDV;
+	irr::gui::IGUIButton* btnDVClose;
 };
 
 extern Game* mainGame;
@@ -885,6 +889,8 @@ extern Game* mainGame;
 #define BUTTON_RMA						519
 #define BUTTON_RM_EXIT					520
 
+#define BUTTON_DV_CLOSE		580
+#define TEXTURE_DV			9
 #define DEFAULT_DUEL_RULE			5
 
 #define CARD_ARTWORK_VERSIONS_OFFSET	10

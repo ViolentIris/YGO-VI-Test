@@ -162,7 +162,7 @@ bool Game::Initialize() {
 	btnModeExit = env->addButton(rect<s32>(10, 205, 270, 235), wMainMenu, BUTTON_MODE_EXIT, dataManager.GetSysString(1210));
 	btnOther = env->addButton(rect<s32>(10, 170, 270, 200), wMainMenu, BUTTON_OTHER, dataManager.GetSysString(1537));
 	//other
-	wOther = env->addWindow(rect<s32>(370, 70, 650, 565), false, dataManager.GetSysString(1537));
+	wOther = env->addWindow(rect<s32>(370, 50, 650, 575), false, dataManager.GetSysString(1537));
 	wOther->getCloseButton()->setVisible(false);
 	wOther->setVisible(false);
 	wOther->setDraggable(false);
@@ -178,7 +178,8 @@ bool Game::Initialize() {
 	btnTG = env->addButton(rect<s32>(10, 345, 270, 375), wOther, BUTTON_TG, dataManager.GetSysString(1449));
 	btnYST = env->addButton(rect<s32>(10, 380, 270, 410), wOther, BUTTON_YST, dataManager.GetSysString(1536));
 	btnMJ = env->addButton(rect<s32>(10, 415, 270, 445), wOther, BUTTON_MJ, dataManager.GetSysString(1513));
-	btnOtherExit = env->addButton(rect<s32>(10, 450, 270, 480), wOther, BUTTON_OTHER_EXIT, dataManager.GetSysString(1210));
+	btnDV = env->addButton(rect<s32>(10, 450, 270, 480), wOther, BUTTON_DV, dataManager.GetSysString(1555));
+	btnOtherExit = env->addButton(rect<s32>(10, 485, 270, 515), wOther, BUTTON_OTHER_EXIT, dataManager.GetSysString(1210));
 	env->addStaticText(L"此版本为YGO-VI-EX战队版测试版本，", rect<s32>(10, 255, 270, 275), false, false, wMainMenu);
 	env->addStaticText(L"遇到问题请务必反馈，群：623209262。", rect<s32>(10, 275, 270, 295), false, false, wMainMenu);
 	env->addStaticText(L"不要觉得会有别人玩喵版程序，别人倒也是这么做的。", rect<s32>(10, 295, 590, 315), false, false, wMainMenu);
@@ -930,6 +931,18 @@ bool Game::Initialize() {
 	btnBigCardZoomIn->setVisible(false);
 	btnBigCardZoomOut->setVisible(false);
 	btnBigCardClose->setVisible(false);
+	//DV
+	wDV = env->addWindow(rect<s32>(215, 30, 645, 700), false, L"");
+	wDV->getCloseButton()->setVisible(false);
+	wDV->setDrawTitlebar(false);
+	wDV->setDrawBackground(false);
+	wDV->setVisible(false);
+	imgDV = env->addImage(rect<s32>(0, 0, 430, 625), wDV);
+	imgDV->setScaleImage(false);
+	imgDV->setImage(imageManager.tDV);
+	imgDV->setUseAlphaChannel(true);
+	btnDVClose = env->addButton(rect<s32>(385, 635, 475, 670), 0, BUTTON_DV_CLOSE, dataManager.GetSysString(1440));
+	btnDVClose->setVisible(false);
 	//leave/surrender/exit
 	btnLeaveGame = env->addButton(rect<s32>(205, 5, 295, 80), 0, BUTTON_LEAVE_GAME, L"");
 	btnLeaveGame->setVisible(false);
@@ -1826,7 +1839,7 @@ void Game::OnResize() {
 	imageManager.ResizeTexture();
 
 	wMainMenu->setRelativePosition(ResizeWin(370, 200, 950, 650));
-	wOther->setRelativePosition(ResizeWin(370, 70, 650, 565));
+	wOther->setRelativePosition(ResizeWin(370, 50, 650, 575));
 	wDeckEdit->setRelativePosition(Resize(309, 5, 605, 130));
 	cbDBDecks->setRelativePosition(Resize(80, 35, 220, 60));
 	btnClearDeck->setRelativePosition(Resize(115, 99, 165, 120));
