@@ -49,6 +49,18 @@ bool ImageManager::Initial() {
 	ResizeTexture();
 	return true;
 }
+irr::video::ITexture* ImageManager::GetRandomImage(int image_type) {
+	int count = ImageList[image_type].size();
+	if(count <= 0)
+		return 0;
+	char ImageName[1024];
+	wchar_t fname[1024];
+	int image_id = rand() % count;
+	auto name = ImageList[image_type][image_id].c_str();
+	myswprintf(fname, L"./textures/%ls", name);
+	BufferIO::EncodeUTF8(fname, ImageName);
+	return driver->getTexture(ImageName);
+}
 void ImageManager::RefreshRandomImageList() {
 	RefreshImageDir(L"divination", TEXTURE_DV);
 }
