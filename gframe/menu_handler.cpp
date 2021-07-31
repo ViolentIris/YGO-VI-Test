@@ -79,8 +79,8 @@ bool MenuHandler::OnEvent(const irr::SEvent& event) {
 				break;
 			}
 			case BUTTON_DV: {
-                mainGame->ShowElement(mainGame->wDV);
-				mainGame->btnDVClose->setEnabled(true);
+                mainGame->btnDVClose->setEnabled(true);
+				mainGame->ShowElement(mainGame->wDV);
 				mainGame->HideElement(mainGame->wOther);
 				break;
 			}
