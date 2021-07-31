@@ -191,6 +191,18 @@ bool Game::Initialize() {
 	env->addStaticText(L"https://weibo.com/VI1911/", rect<s32>(10, 390, 270, 410), false, false, wMainMenu);
 	env->addStaticText(L"目前测试的内容：\n做点战队打牌大佬可能用得上的。\n\n已知问题：\n你喵老师太弱了，没有力量。\n\n空位还多，征集个广告位如何？\n比如战队推广啥的？", rect<s32>(300, 30, 550, 390), false, true, wMainMenu);
 
+	//DV
+	wDV = env->addWindow(rect<s32>(215, 30, 645, 700), false, L"");
+	wDV->getCloseButton()->setVisible(false);
+	wDV->setDrawTitlebar(false);
+	wDV->setDrawBackground(false);
+	wDV->setVisible(false);
+	imgDV = env->addImage(rect<s32>(0, 0, 430, 625), wDV);
+	imgDV->setScaleImage(false);
+	imgDV->setImage(imageManager.tDV);
+	imgDV->setUseAlphaChannel(true);
+	btnDVClose = env->addButton(rect<s32>(385, 635, 475, 670), 0, BUTTON_DV_CLOSE, dataManager.GetSysString(1440));
+	btnDVClose->setVisible(false);
 	//lan mode
 	wLanWindow = env->addWindow(rect<s32>(220, 100, 800, 520), false, dataManager.GetSysString(1200));
 	wLanWindow->getCloseButton()->setVisible(false);
@@ -931,18 +943,6 @@ bool Game::Initialize() {
 	btnBigCardZoomIn->setVisible(false);
 	btnBigCardZoomOut->setVisible(false);
 	btnBigCardClose->setVisible(false);
-	//DV
-	wDV = env->addWindow(rect<s32>(215, 30, 645, 700), false, L"");
-	wDV->getCloseButton()->setVisible(false);
-	wDV->setDrawTitlebar(false);
-	wDV->setDrawBackground(false);
-	wDV->setVisible(false);
-	imgDV = env->addImage(rect<s32>(0, 0, 430, 625), wDV);
-	imgDV->setScaleImage(false);
-	imgDV->setImage(imageManager.tDV);
-	imgDV->setUseAlphaChannel(true);
-	btnDVClose = env->addButton(rect<s32>(385, 635, 475, 670), 0, BUTTON_DV_CLOSE, dataManager.GetSysString(1440));
-	btnDVClose->setVisible(false);
 	//leave/surrender/exit
 	btnLeaveGame = env->addButton(rect<s32>(205, 5, 295, 80), 0, BUTTON_LEAVE_GAME, L"");
 	btnLeaveGame->setVisible(false);
