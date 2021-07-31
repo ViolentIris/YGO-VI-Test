@@ -335,6 +335,7 @@ public:
 	irr::gui::IGUIButton* btnTG;
 	irr::gui::IGUIButton* btnYST;
 	irr::gui::IGUIButton* btnMJ;
+	irr::gui::IGUIButton* btnDV;
 	//lan
 	irr::gui::IGUIWindow* wLanWindow;
 	irr::gui::IGUIEditBox* ebNickName;
@@ -858,6 +859,7 @@ extern Game* mainGame;
 #define BUTTON_DLD						431
 #define BUTTON_YST						432
 #define BUTTON_MJ						433
+#define BUTTON_DV						434
 #define BUTTON_SERVER_CHOOSE			394
 #define BUTTON_233						395
 #define BUTTON_23333					396
