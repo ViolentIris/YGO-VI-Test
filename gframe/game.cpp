@@ -192,7 +192,7 @@ bool Game::Initialize() {
 	env->addStaticText(L"目前测试的内容：\n做点战队打牌大佬可能用得上的。\n\n已知问题：\n你喵老师太弱了，没有力量。\n\n空位还多，征集个广告位如何？\n比如战队推广啥的？", rect<s32>(300, 30, 550, 390), false, true, wMainMenu);
 
 	//DV
-	wDV = env->addWindow(rect<s32>(306, 70, 800, 770), false, L"");
+	wDV = env->addWindow(rect<s32>(0, 70, 600, 770), false, L"");
 	wDV->getCloseButton()->setVisible(false);
 	wDV->setDrawTitlebar(false);
 	wDV->setDrawBackground(false);
