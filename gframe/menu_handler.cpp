@@ -142,6 +142,7 @@ bool MenuHandler::OnEvent(const irr::SEvent& event) {
 			case BUTTON_OTHER_EXIT: {
 				mainGame->HideElement(mainGame->wOther);
 				mainGame->ShowElement(mainGame->wMainMenu);
+				mainGame->HideElement(mainGame->wDV);
 				if(exit_on_return)
 					mainGame->device->closeDevice();
 				break;
