@@ -81,12 +81,10 @@ bool MenuHandler::OnEvent(const irr::SEvent& event) {
 			case BUTTON_DV: {
                 mainGame->btnDVClose->setEnabled(true);
 				mainGame->ShowElement(mainGame->wDV);
-				mainGame->HideElement(mainGame->wOther);
 				break;
 			}
 			case BUTTON_DV_CLOSE:{
 				mainGame->HideElement(mainGame->wDV);
-				mainGame->ShowElement(mainGame->wOther);
 				if(exit_on_return)
 					mainGame->device->closeDevice();
 				break;
