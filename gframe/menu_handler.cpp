@@ -632,6 +632,43 @@ bool MenuHandler::OnEvent(const irr::SEvent& event) {
 				mainGame->ShowElement(mainGame->wMainMenu);
 				break;
 			}
+			case BUTTON_EXPORT_DECK: {
+				if(mainGame->lstReplayList->getSelected() == -1)
+					break;
+				Replay replay;
+				wchar_t ex_filename[256];
+				wchar_t namebuf[4][20];
+				wchar_t filename[256];
+				myswprintf(ex_filename, L"%ls", mainGame->lstReplayList->getListItem(mainGame->lstReplayList->getSelected()));
+				if(!replay.OpenReplay(ex_filename))
+					break;
+				const ReplayHeader& rh = replay.pheader;
+				if(rh.flag & REPLAY_SINGLE_MODE)
+					break;
+				int max = (rh.flag & REPLAY_TAG) ? 4 : 2;
+				//player name
+				for(int i = 0; i < max; ++i)
+					replay.ReadName(namebuf[i]);
+				//skip pre infos
+				for(int i = 0; i < 4; ++i)
+					replay.ReadInt32();
+				//deck
+				for(int i = 0; i < max; ++i) {
+					int main = replay.ReadInt32();
+					Deck tmp_deck;
+					for(int j = 0; j < main; ++j)
+						tmp_deck.main.push_back(dataManager.GetCodePointer(replay.ReadInt32()));
+					int extra = replay.ReadInt32();
+					for(int j = 0; j < extra; ++j)
+						tmp_deck.extra.push_back(dataManager.GetCodePointer(replay.ReadInt32()));
+					FileSystem::SafeFileName(namebuf[i]);
+					myswprintf(filename, L"deck/%ls-%d %ls.ydk", ex_filename, i + 1, namebuf[i]);
+					deckManager.SaveDeck(tmp_deck, filename);
+				}
+				mainGame->stACMessage->setText(dataManager.GetSysString(1335));
+				mainGame->PopupElement(mainGame->wACMessage, 20);
+				break;
+			}
 			case BUTTON_BOT_START: {
 				int sel = mainGame->lstBotList->getSelected();
 				if(sel == -1)
@@ -721,7 +758,7 @@ bool MenuHandler::OnEvent(const irr::SEvent& event) {
 					wchar_t *dash = wcsrchr(open_file_name, L'/');
 #endif
 					wchar_t *dot = wcsrchr(open_file_name, L'.');
-					if(dash && dot) {
+					if(dash && dot && !mywcsncasecmp(dot, L".ydk", 4)) { // full path
 						wchar_t deck_name[256];
 						wcsncpy(deck_name, dash + 1, dot - dash - 1);
 						deck_name[dot - dash - 1] = L'\0';
@@ -731,7 +768,17 @@ bool MenuHandler::OnEvent(const irr::SEvent& event) {
 						mainGame->btnManageDeck->setEnabled(false);
 						mainGame->cbDBCategory->setEnabled(false);
 						mainGame->cbDBDecks->setEnabled(false);
-					} else {
+					} else if(dash) { // has category
+						wchar_t deck_name[256];
+						wcsncpy(deck_name, dash + 1, 256);
+						for(size_t i = 0; i < mainGame->cbDBDecks->getItemCount(); ++i) {
+							if(!wcscmp(mainGame->cbDBDecks->getItem(i), deck_name)) {
+								wcscpy(mainGame->gameConf.lastdeck, deck_name);
+								mainGame->cbDBDecks->setSelected(i);
+								break;
+							}
+						}
+					} else { // only deck name
 						for(size_t i = 0; i < mainGame->cbDBDecks->getItemCount(); ++i) {
 							if(!wcscmp(mainGame->cbDBDecks->getItem(i), open_file_name)) {
 								wcscpy(mainGame->gameConf.lastdeck, open_file_name);
@@ -817,7 +864,11 @@ bool MenuHandler::OnEvent(const irr::SEvent& event) {
 					break;
 				wchar_t infobuf[256];
 				std::wstring repinfo;
-				time_t curtime = ReplayMode::cur_replay.pheader.seed;
+				time_t curtime;
+				if(ReplayMode::cur_replay.pheader.flag & REPLAY_UNIFORM)
+					curtime = ReplayMode::cur_replay.pheader.start_time;
+				else
+					curtime = ReplayMode::cur_replay.pheader.seed;
 				tm* st = localtime(&curtime);
 				wcsftime(infobuf, 256, L"%Y/%m/%d %H:%M:%S\n", st);
 				repinfo.append(infobuf);

@@ -10,7 +10,7 @@
 #include "netserver.h"
 #include "single_mode.h"
 
-const unsigned short PRO_VERSION = 0x1352;
+const unsigned short PRO_VERSION = 0x1353;
 
 namespace ygo {
 
@@ -59,7 +59,6 @@ bool Game::Initialize() {
 		return false;
 	}
 	dataManager.FileSystem = device->getFileSystem();
-	LoadExpansions();
 	if(!dataManager.LoadDB(L"cards.cdb")) {
 		ErrorLog("Failed to load card database (cards.cdb)!");
 		return false;
@@ -68,7 +67,7 @@ bool Game::Initialize() {
 		ErrorLog("Failed to load strings!");
 		return false;
 	}
-	dataManager.LoadStrings("./expansions/strings.conf");
+	LoadExpansions();
 	env = device->getGUIEnvironment();
 	numFont = irr::gui::CGUITTFont::createTTFont(env, gameConf.numfont, 16);
 	if(!numFont) {
@@ -97,6 +96,9 @@ bool Game::Initialize() {
 			L"C:/Windows/Fonts/msyh.ttc",
 			L"C:/Windows/Fonts/msyh.ttf",
 			L"C:/Windows/Fonts/simsun.ttc",
+			L"C:/Windows/Fonts/YuGothM.ttc",
+			L"C:/Windows/Fonts/meiryo.ttc",
+			L"C:/Windows/Fonts/msgothic.ttc",
 			L"/usr/share/fonts/truetype/DroidSansFallbackFull.ttf",
 			L"/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
 			L"/usr/share/fonts/google-noto-cjk/NotoSansCJK-Regular.ttc",
@@ -275,11 +277,30 @@ bool Game::Initialize() {
 	cbHostLFlist->setSelected(gameConf.use_lflist ? gameConf.default_lflist : cbHostLFlist->getItemCount() - 1);
 	env->addStaticText(dataManager.GetSysString(1225), rect<s32>(20, 60, 220, 80), false, false, wCreateHost);
 	cbRule = env->addComboBox(rect<s32>(140, 55, 300, 80), wCreateHost);
-	cbRule->addItem(dataManager.GetSysString(1240));
-	cbRule->addItem(dataManager.GetSysString(1241));
-	cbRule->addItem(dataManager.GetSysString(1242));
-	cbRule->addItem(dataManager.GetSysString(1243));
-	cbRule->setSelected(gameConf.defaultOT - 1);
+	cbRule->setMaxSelectionRows(10);
+	cbRule->addItem(dataManager.GetSysString(1481));
+	cbRule->addItem(dataManager.GetSysString(1482));
+	cbRule->addItem(dataManager.GetSysString(1483));
+	cbRule->addItem(dataManager.GetSysString(1484));
+	cbRule->addItem(dataManager.GetSysString(1485));
+	cbRule->addItem(dataManager.GetSysString(1486));
+	switch(gameConf.defaultOT) {
+	case 1:
+		cbRule->setSelected(0);
+		break;
+	case 2:
+		cbRule->setSelected(1);
+		break;
+	case 4:
+		cbRule->setSelected(3);
+		break;
+	case 8:
+		cbRule->setSelected(2);
+		break;
+	default:
+		cbRule->setSelected(5);
+		break;
+	}	
 	env->addStaticText(dataManager.GetSysString(1227), rect<s32>(20, 90, 220, 110), false, false, wCreateHost);
 	cbMatchMode = env->addComboBox(rect<s32>(140, 85, 300, 110), wCreateHost);
 	cbMatchMode->addItem(dataManager.GetSysString(1244));
@@ -756,10 +777,11 @@ bool Game::Initialize() {
 	cbLimit->addItem(dataManager.GetSysString(1316));
 	cbLimit->addItem(dataManager.GetSysString(1317));
 	cbLimit->addItem(dataManager.GetSysString(1318));
-	cbLimit->addItem(dataManager.GetSysString(1240));
-	cbLimit->addItem(dataManager.GetSysString(1241));
-	cbLimit->addItem(dataManager.GetSysString(1242));
-	cbLimit->addItem(dataManager.GetSysString(1243));
+	cbLimit->addItem(dataManager.GetSysString(1481));
+	cbLimit->addItem(dataManager.GetSysString(1482));
+	cbLimit->addItem(dataManager.GetSysString(1483));
+	cbLimit->addItem(dataManager.GetSysString(1484));
+	cbLimit->addItem(dataManager.GetSysString(1485));
 	stAttribute = env->addStaticText(dataManager.GetSysString(1319), rect<s32>(10, 22 + 50 / 6, 70, 42 + 50 / 6), false, false, wFilter);
 	cbAttribute = env->addComboBox(rect<s32>(60, 20 + 50 / 6, 190, 40 + 50 / 6), wFilter, COMBOBOX_ATTRIBUTE);
 	cbAttribute->setMaxSelectionRows(10);
@@ -802,7 +824,7 @@ bool Game::Initialize() {
 	int catewidth = 0;
 	for(int i = 0; i < 32; ++i) {
 		irr::core::dimension2d<unsigned int> dtxt = mainGame->guiFont->getDimension(dataManager.GetSysString(1100 + i));
-		if(dtxt.Width + 40 > catewidth)
+		if((int)dtxt.Width + 40 > catewidth)
 			catewidth = dtxt.Width + 40;
 	}
 	for(int i = 0; i < 32; ++i)
@@ -837,8 +859,9 @@ bool Game::Initialize() {
 	btnDeleteReplay = env->addButton(rect<s32>(360, 355, 460, 380), wReplay, BUTTON_DELETE_REPLAY, dataManager.GetSysString(1361));
 	btnRenameReplay = env->addButton(rect<s32>(360, 385, 460, 410), wReplay, BUTTON_RENAME_REPLAY, dataManager.GetSysString(1362));
 	btnReplayCancel = env->addButton(rect<s32>(470, 385, 570, 410), wReplay, BUTTON_CANCEL_REPLAY, dataManager.GetSysString(1347));
+	btnExportDeck = env->addButton(rect<s32>(470, 325, 570, 350), wReplay, BUTTON_EXPORT_DECK, dataManager.GetSysString(1369));
 	env->addStaticText(dataManager.GetSysString(1349), rect<s32>(360, 30, 570, 50), false, true, wReplay);
-	stReplayInfo = env->addStaticText(L"", rect<s32>(360, 60, 570, 350), false, true, wReplay);
+	stReplayInfo = env->addStaticText(L"", rect<s32>(360, 60, 570, 320), false, true, wReplay);
 	env->addStaticText(dataManager.GetSysString(1353), rect<s32>(360, 275, 570, 295), false, true, wReplay);
 	ebRepStartTurn = env->addEditBox(L"", rect<s32>(360, 300, 460, 320), true, wReplay, -1);
 	ebRepStartTurn->setTextAlignment(irr::gui::EGUIA_CENTER, irr::gui::EGUIA_CENTER);
@@ -881,7 +904,8 @@ bool Game::Initialize() {
 	btnLoadSinglePlay = env->addButton(rect<s32>(459, 301, 569, 326), tabSingle, BUTTON_LOAD_SINGLEPLAY, dataManager.GetSysString(1211));
 	btnSinglePlayCancel = env->addButton(rect<s32>(459, 331, 569, 356), tabSingle, BUTTON_CANCEL_SINGLEPLAY, dataManager.GetSysString(1210));
 	env->addStaticText(dataManager.GetSysString(1352), rect<s32>(360, 10, 550, 30), false, true, tabSingle);
-	stSinglePlayInfo = env->addStaticText(L"", rect<s32>(360, 40, 560, 280), false, true, tabSingle);
+	stSinglePlayInfo = env->addStaticText(L"", rect<s32>(360, 40, 560, 160), false, true, tabSingle);
+	chkSinglePlayReturnDeckTop = env->addCheckBox(false, rect<s32>(360, 260, 560, 280), tabSingle, -1, dataManager.GetSysString(1238));
 	//replay save
 	wReplaySave = env->addWindow(rect<s32>(510, 200, 820, 320), false, dataManager.GetSysString(1340));
 	wReplaySave->getCloseButton()->setVisible(false);
@@ -1152,14 +1176,17 @@ std::wstring Game::SetStaticText(irr::gui::IGUIStaticText* pControl, u32 cWidth,
 }
 void Game::LoadExpansions() {
 	FileSystem::TraversalDir(L"./expansions", [](const wchar_t* name, bool isdir) {
+		wchar_t fpath[1024];
+		myswprintf(fpath, L"./expansions/%ls", name);
 		if(!isdir && wcsrchr(name, '.') && !mywcsncasecmp(wcsrchr(name, '.'), L".cdb", 4)) {
-			wchar_t fpath[1024];
-			myswprintf(fpath, L"./expansions/%ls", name);
 			dataManager.LoadDB(fpath);
 		}
+		if(!isdir && wcsrchr(name, '.') && !mywcsncasecmp(wcsrchr(name, '.'), L".conf", 5)) {
+			char upath[1024];
+			BufferIO::EncodeUTF8(fpath, upath);
+			dataManager.LoadStrings(upath);
+		}
 		if(!isdir && wcsrchr(name, '.') && (!mywcsncasecmp(wcsrchr(name, '.'), L".zip", 4) || !mywcsncasecmp(wcsrchr(name, '.'), L".ypk", 4))) {
-			wchar_t fpath[1024];
-			myswprintf(fpath, L"./expansions/%ls", name);
 #ifdef _WIN32
 			dataManager.FileSystem->addFileArchive(fpath, true, false, EFAT_ZIP);
 #else
@@ -1898,17 +1925,6 @@ void Game::OnResize() {
 	btnDeleteDeck->setRelativePosition(Resize(225, 95, 290, 120));
 
 	wLanWindow->setRelativePosition(ResizeWin(220, 100, 800, 520));
-	recti btnCRpos = wLanWindow->getAbsolutePosition();
-	wSC->setRelativePosition(recti(
-		btnCRpos.LowerRightCorner.X - 860,
-		btnCRpos.LowerRightCorner.Y - 420,
-		btnCRpos.LowerRightCorner.X - 580,
-		btnCRpos.LowerRightCorner.Y - 103));
-	wRM->setRelativePosition(recti(
-		btnCRpos.LowerRightCorner.X,
-		btnCRpos.LowerRightCorner.Y - 420,
-		btnCRpos.LowerRightCorner.X + 430,
-		btnCRpos.LowerRightCorner.Y - 60));
 	wCreateHost->setRelativePosition(ResizeWin(320, 100, 700, 520));
 	wHostPrepare->setRelativePosition(ResizeWin(270, 120, 750, 440));
 	wReplay->setRelativePosition(ResizeWin(220, 100, 800, 520));

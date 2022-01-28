@@ -79,6 +79,7 @@ void DeckBuilder::Initialize() {
 	mainGame->btnSideReload->setVisible(false);
 	filterList = &deckManager._lfList[mainGame->gameConf.use_lflist ? mainGame->gameConf.default_lflist : deckManager._lfList.size() - 1].content;
 	ClearSearch();
+	rnd.reset((unsigned int)time(nullptr));
 	mouse_pos.set(0, 0);
 	hovered_code = 0;
 	hovered_pos = 0;
@@ -167,7 +168,7 @@ bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 				break;
 			}
 			case BUTTON_SHUFFLE_DECK: {
-				std::random_shuffle(deckManager.current_deck.main.begin(), deckManager.current_deck.main.end());
+				rnd.shuffle_vector(deckManager.current_deck.main);
 				break;
 			}
 			case BUTTON_SAVE_DECK: {
@@ -354,7 +355,7 @@ bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 				int catesel = mainGame->lstCategories->getSelected();
 				if(catesel != 2)
 					mainGame->cbDMCategory->addItem(dataManager.GetSysString(1452));
-				for(int i = 4; i < mainGame->lstCategories->getItemCount(); i++) {
+				for(int i = 4; i < (int)mainGame->lstCategories->getItemCount(); i++) {
 					if(i != catesel)
 						mainGame->cbDMCategory->addItem(mainGame->lstCategories->getListItem(i));
 				}
@@ -371,7 +372,7 @@ bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 				int catesel = mainGame->lstCategories->getSelected();
 				if(catesel != 2)
 					mainGame->cbDMCategory->addItem(dataManager.GetSysString(1452));
-				for(int i = 4; i < mainGame->lstCategories->getItemCount(); i++) {
+				for(int i = 4; i < (int)mainGame->lstCategories->getItemCount(); i++) {
 					if(i != catesel)
 						mainGame->cbDMCategory->addItem(mainGame->lstCategories->getListItem(i));
 				}
@@ -390,7 +391,7 @@ bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 						mainGame->lstCategories->addItem(catename);
 						catesel = mainGame->lstCategories->getItemCount() - 1;
 					} else {
-						for(int i = 3; i < mainGame->lstCategories->getItemCount(); i++) {
+						for(int i = 3; i < (int)mainGame->lstCategories->getItemCount(); i++) {
 							if(!mywcsncasecmp(mainGame->lstCategories->getListItem(i), catename, 256)) {
 								catesel = i;
 								mainGame->stACMessage->setText(dataManager.GetSysString(1474));
@@ -420,7 +421,7 @@ bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 						catesel = mainGame->lstCategories->getItemCount() - 1;
 					} else {
 						catesel = 0;
-						for(int i = 3; i < mainGame->lstCategories->getItemCount(); i++) {
+						for(int i = 3; i < (int)mainGame->lstCategories->getItemCount(); i++) {
 							if(!mywcsncasecmp(mainGame->lstCategories->getListItem(i), newcatename, 256)) {
 								catesel = i;
 								mainGame->stACMessage->setText(dataManager.GetSysString(1474));
@@ -471,7 +472,7 @@ bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 						RefreshDeckList();
 						ChangeCategory(mainGame->lstCategories->getSelected());
 					}
-					for(int i = 0; i < mainGame->lstDecks->getItemCount(); i++) {
+					for(int i = 0; i < (int)mainGame->lstDecks->getItemCount(); i++) {
 						if(!mywcsncasecmp(mainGame->lstDecks->getListItem(i), deckname, 256)) {
 							deckManager.LoadDeck(filepath);
 							prev_deck = i;
@@ -505,7 +506,7 @@ bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 					}
 					RefreshDeckList();
 					ChangeCategory(catesel);
-					for(int i = 0; i < mainGame->lstDecks->getItemCount(); i++) {
+					for(int i = 0; i < (int)mainGame->lstDecks->getItemCount(); i++) {
 						if(!mywcsncasecmp(mainGame->lstDecks->getListItem(i), newdeckname, 256)) {
 							deckManager.LoadDeck(newfilepath);
 							prev_deck = i;
@@ -569,7 +570,7 @@ bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 					RefreshDeckList();
 					mainGame->cbDBCategory->setSelected(catesel);
 					ChangeCategory(catesel);
-					for(int i = 0; i < mainGame->lstDecks->getItemCount(); i++) {
+					for(int i = 0; i < (int)mainGame->lstDecks->getItemCount(); i++) {
 						if(!mywcsncasecmp(mainGame->lstDecks->getListItem(i), deckname, 256)) {
 							deckManager.LoadDeck(newfilepath);
 							prev_deck = i;
@@ -607,7 +608,7 @@ bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 					RefreshDeckList();
 					mainGame->cbDBCategory->setSelected(catesel);
 					ChangeCategory(catesel);
-					for(int i = 0; i < mainGame->lstDecks->getItemCount(); i++) {
+					for(int i = 0; i < (int)mainGame->lstDecks->getItemCount(); i++) {
 						if(!mywcsncasecmp(mainGame->lstDecks->getListItem(i), deckname, 256)) {
 							deckManager.LoadDeck(newfilepath);
 							prev_deck = i;
@@ -1184,161 +1185,6 @@ bool DeckBuilder::OnEvent(const irr::SEvent& event) {
 				ZoomBigCard(mouse_pos.X, mouse_pos.Y);
 				break;
 			}
-			if(hovered_pos >= 1 && hovered_pos <= 3 && hovered_seq != -1) {
-				position2di dest;
-				int pos = hovered_pos;
-				int seq = hovered_seq;
-				switch(pos) {
-				case 1: {
-					if(event.MouseInput.Wheel > 0) {
-						if(seq <= 0) {
-							if(deckManager.current_deck.side.size() > 0) {
-								pos = 3;
-								seq = deckManager.current_deck.side.size() - 1;
-							} else if(deckManager.current_deck.extra.size() > 0) {
-								pos = 2;
-								seq = deckManager.current_deck.extra.size() - 1;
-							} else if(deckManager.current_deck.main.size() > 0) {
-								pos = 1;
-								seq = deckManager.current_deck.main.size() - 1;
-							} else
-								pos = -1;
-						} else
-							seq--;
-					} else {
-						if(seq + 1 >= deckManager.current_deck.main.size()) {
-							if(deckManager.current_deck.extra.size() > 0) {
-								pos = 2;
-								seq = 0;
-							} else if(deckManager.current_deck.side.size() > 0) {
-								pos = 3;
-								seq = 0;
-							} else if(deckManager.current_deck.main.size() > 0) {
-								pos = 1;
-								seq = 0;
-							} else
-								pos = -1;
-						} else
-							seq++;
-					}
-					break;
-				}
-				case 2: {
-					if(event.MouseInput.Wheel > 0) {
-						if(seq <= 0) {
-							if(deckManager.current_deck.main.size() > 0) {
-								pos = 1;
-								seq = deckManager.current_deck.main.size() - 1;
-							} else if(deckManager.current_deck.side.size() > 0) {
-								pos = 2;
-								seq = deckManager.current_deck.side.size() - 1;
-							} else if(deckManager.current_deck.extra.size() > 0) {
-								pos = 1;
-								seq = deckManager.current_deck.extra.size() - 1;
-							} else
-								pos = -1;
-						} else
-							seq--;
-					} else {
-						if(seq + 1 >= deckManager.current_deck.extra.size()) {
-							if(deckManager.current_deck.side.size() > 0) {
-								pos = 3;
-								seq = 0;
-							} else if(deckManager.current_deck.main.size() > 0) {
-								pos = 1;
-								seq = 0;
-							} else if(deckManager.current_deck.extra.size() > 0) {
-								pos = 2;
-								seq = 0;
-							} else
-								pos = -1;
-						} else
-							seq++;
-					}
-					break;
-				}
-				case 3: {
-					if(event.MouseInput.Wheel > 0) {
-						if(seq <= 0) {
-							if(deckManager.current_deck.extra.size() > 0) {
-								pos = 2;
-								seq = deckManager.current_deck.extra.size() - 1;
-							} else if(deckManager.current_deck.main.size() > 0) {
-								pos = 1;
-								seq = deckManager.current_deck.main.size() - 1;
-							} else if(deckManager.current_deck.side.size() > 0) {
-								pos = 3;
-								seq = deckManager.current_deck.side.size() - 1;
-							} else
-								pos = -1;
-						} else
-							seq--;
-					} else {
-						if(seq + 1 >= deckManager.current_deck.side.size()) {
-							if(deckManager.current_deck.main.size() > 0) {
-								pos = 1;
-								seq = 0;
-							} else if(deckManager.current_deck.extra.size() > 0) {
-								pos = 2;
-								seq = 0;
-							} else if(deckManager.current_deck.side.size() > 0) {
-								pos = 3;
-								seq = 0;
-							} else
-								pos = -1;
-						} else
-							seq++;
-					}
-					break;
-				}
-				}
-				if(pos < 0)
-					break;
-				int lx;
-				float dx;
-				switch(pos) {
-				case 1: {
-					if(deckManager.current_deck.main.size() <= 40) {
-						dx = 436.0f / 9;
-						lx = 10;
-					} else {
-						lx = (deckManager.current_deck.main.size() - 41) / 4 + 11;
-						dx = 436.0f / (lx - 1);
-					}
-					dest.X = 314 + CARD_THUMB_WIDTH / 2 + (seq % lx) * dx;
-					dest.Y = 164 + CARD_THUMB_HEIGHT / 2 + (seq / lx) * 68;
-					break;
-				}
-				case 2: {
-					if(deckManager.current_deck.extra.size() <= 10)
-						dx = 436.0f / 9;
-					else
-						dx = 436.0f / (deckManager.current_deck.extra.size() - 1);
-					dest.X = 314 + CARD_THUMB_WIDTH / 2 + seq * dx;
-					dest.Y = 466 + CARD_THUMB_HEIGHT / 2;
-					break;
-				}
-				case 3: {
-					if(deckManager.current_deck.side.size() <= 10)
-						dx = 436.0f / 9;
-					else
-						dx = 436.0f / (deckManager.current_deck.side.size() - 1);
-					dest.X = 314 + CARD_THUMB_WIDTH / 2 + seq * dx;
-					dest.Y = 564 + CARD_THUMB_HEIGHT / 2;
-					break;
-				}
-				}
-				dest = mainGame->Resize(dest.X, dest.Y);
-#ifdef _WIN32
-				POINT pt;
-				pt.x = dest.X;
-				pt.y = dest.Y;
-				ClientToScreen(mainGame->hWnd, &pt);
-				SetCursorPos(pt.x, pt.y);
-#endif
-				soundManager.PlaySoundEffect(SOUND_CARD_DROP);
-				break;
-			}
 			if(!mainGame->scrFilter->isVisible())
 				break;
 			if(mainGame->env->hasFocus(mainGame->scrFilter))
@@ -1603,13 +1449,15 @@ void DeckBuilder::FilterCards() {
 		if(filter_lm) {
 			if(filter_lm <= 3 && (!filterList->count(ptr->first) || (*filterList).at(ptr->first) != filter_lm - 1))
 				continue;
-			if(filter_lm == 4 && data.ot != 1)
+			if(filter_lm == 4 && !(data.ot & AVAIL_OCG))
 				continue;
-			if(filter_lm == 5 && data.ot != 2)
+			if(filter_lm == 5 && !(data.ot & AVAIL_TCG))
 				continue;
-			if(filter_lm == 6 && data.ot != 3)
+			if(filter_lm == 6 && !(data.ot & AVAIL_SC))
 				continue;
-			if(filter_lm == 7 && data.ot != 4)
+			if(filter_lm == 7 && !(data.ot & AVAIL_CUSTOM))
+				continue;
+			if(filter_lm == 8 && ((data.ot & AVAIL_OCGTCG) != AVAIL_OCGTCG))
 				continue;
 		}
 		bool is_target = true;
@@ -1654,7 +1502,7 @@ void DeckBuilder::FilterCards() {
 	SortList();
 }
 void DeckBuilder::InstantSearch() {
-	if(mainGame->gameConf.auto_search_limit >= 0 && (wcslen(mainGame->ebCardName->getText()) >= mainGame->gameConf.auto_search_limit))
+	if(mainGame->gameConf.auto_search_limit >= 0 && ((int)wcslen(mainGame->ebCardName->getText()) >= mainGame->gameConf.auto_search_limit))
 		StartFilter();
 }
 void DeckBuilder::ClearSearch() {
